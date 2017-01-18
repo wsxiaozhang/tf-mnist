@@ -6,4 +6,4 @@ COPY	convert_to_records.py /tf/mnist
 COPY	mnist_replica.py /tf/mnist
 RUN	python /tf/mnist/convert_to_records.py
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["python"]
