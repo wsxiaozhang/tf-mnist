@@ -71,12 +71,14 @@ def main(unused_argv):
                                    dtype=tf.uint8,
                                    reshape=False,
                                    validation_size=FLAGS.validation_size)
+  print("data downloaded")
 
   # Convert to Examples and write the result to TFRecords.
   convert_to(data_sets.train, 'train')
   convert_to(data_sets.validation, 'validation')
   convert_to(data_sets.test, 'test')
-
+  
+  print("data converted")
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
