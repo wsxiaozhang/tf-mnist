@@ -57,8 +57,6 @@ def main(_):
   if FLAGS.model_version <= 0:
     print 'Please specify a positive value for version number.'
     sys.exit(-1)
-  if FLAGS.log_dir == Null:
-    print 'checkpoint file will be stored in /tmp by default.' 
 
   # Train model
   print 'Training model...'
