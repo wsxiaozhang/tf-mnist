@@ -21,7 +21,7 @@ simply follows all its training instructions, and uses TensorFlow SavedModel to
 export the trained model with proper signatures that can be loaded by standard
 tensorflow_model_server.
 
-Usage: mnist_export.py [--training_iteration=x] [--model_version=y] export_dir
+Usage: mnist_save.py [--training_iteration=x] [--model_version=y] [--work_dir=dataset_dir] [--log_dir=checkpoint_dir]
 """
 
 import os
@@ -42,21 +42,23 @@ from tensorflow.examples.tutorials.mnist import input_data as mnist_input_data
 tf.app.flags.DEFINE_integer('training_iteration', 1000,
                             'number of training iterations.')
 tf.app.flags.DEFINE_integer('model_version', 1, 'version number of the model.')
-tf.app.flags.DEFINE_string('work_dir', '/tmp', 'Working directory.')
+tf.app.flags.DEFINE_string('data_dir', '/tmp', 'Working directory.')
+tf.app.flags.DEFINE_string('log_dir', '/tmp/mnist_log', 'checkpoint and log directory.')
 FLAGS = tf.app.flags.FLAGS
 
 
 def main(_):
-  if len(sys.argv) < 2 or sys.argv[-1].startswith('-'):
+  if len(sys.argv) == 1:
     print('Usage: mnist_export.py [--training_iteration=x] '
-          '[--model_version=y] export_dir')
-    sys.exit(-1)
+          '[--model_version=y] [--data_dir=dataset_dir] [--log_dir=checkpoint_dir]')
   if FLAGS.training_iteration <= 0:
     print 'Please specify a positive value for training iteration.'
     sys.exit(-1)
   if FLAGS.model_version <= 0:
     print 'Please specify a positive value for version number.'
     sys.exit(-1)
+  if FLAGS.log_dir == Null:
+    print 'checkpoint file will be stored in /tmp by default.' 
 
   # Train model
   print 'Training model...'
@@ -78,10 +80,7 @@ def main(_):
     prediction_classes = tf.contrib.lookup.index_to_string(
       tf.to_int64(indices), mapping=tf.constant([str(i) for i in xrange(10)]))
 
-#  tf.add_to_collection('x', x)
-#  tf.add_to_collection('y', y)
     tf.add_to_collection('values', values)
-#  tf.add_to_collection('train_step', train_step)
     tf.add_to_collection('prediction_classes', prediction_classes)
 
     for _ in range(FLAGS.training_iteration):
@@ -93,8 +92,13 @@ def main(_):
       accuracy, feed_dict={x: mnist.test.images,
                            y_: mnist.test.labels})
     print 'Done training!'
+
+    checkpoint_dir =  FLAGS.log_dir
+    if not os.path.exists(checkpoint_dir):
+      os.makedirs(checkpoint_dir)
+
     saver = tf.train.Saver()
-    saver.save(sess, "/test/mnistoutput/ckpt")
+    saver.save(sess, checkpoint_dir + "/ckpt")
 
   print 'Done saving!'
 
