@@ -42,7 +42,7 @@ from tensorflow.examples.tutorials.mnist import input_data as mnist_input_data
 tf.app.flags.DEFINE_integer('training_iteration', 1000,
                             'number of training iterations.')
 tf.app.flags.DEFINE_integer('model_version', 1, 'version number of the model.')
-tf.app.flags.DEFINE_string('data_dir', '/tmp', 'Working directory.')
+tf.app.flags.DEFINE_string('data_dir', '/tmp', 'Mnist dataset directory.')
 tf.app.flags.DEFINE_string('log_dir', '/tmp/mnist_log', 'checkpoint and log directory.')
 FLAGS = tf.app.flags.FLAGS
 
@@ -60,7 +60,7 @@ def main(_):
 
   # Train model
   print 'Training model...'
-  mnist = mnist_input_data.read_data_sets(FLAGS.work_dir, one_hot=True)
+  mnist = mnist_input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
  # sess = tf.InteractiveSession()
   with tf.Session() as sess:
     serialized_tf_example = tf.placeholder(tf.string, name='tf_example')
