@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/denverdino/tensorflow:1.0.0
+FROM  registry.cn-hangzhou.aliyuncs.com/denverdino/tensorflow:1.0.0-devel
 
 # for VPC, please use mirrors.cloud.aliyuncs.com, public cloud for mirrors.aliyun.com
 RUN  sed -i 's/archive.ubuntu.com/mirrors.cloud.aliyuncs.com/' /etc/apt/sources.list
