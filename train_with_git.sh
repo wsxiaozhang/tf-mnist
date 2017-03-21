@@ -9,7 +9,9 @@ echo "Cloning training code from " $GIT_URL
 git clone $GIT_URL
 echo "Done clone code."
 
-mkdir $default_output_path
+if ![-d "$default_output_path"]; then
+  mkdir $default_output_path
+fi
 
 echo "Run training code as: " $@
 
