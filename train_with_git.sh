@@ -27,11 +27,11 @@ ckpt_local_path=$default_output_path
 ckpt_remote_path=$default_oss_volume_path
 
 if [ -d $ckpt_remote_path ]; then
-  cp -r $ckpt_local_path'/*' $ckpt_remote_path
-  echo 'Persists checkpoints from local path $ckpt_local_path to remote data volume $ckpt_remote_path.' 
+  cp -r $ckpt_local_path/* $ckpt_remote_path
+  echo Persists checkpoints from local path $ckpt_local_path/ to remote data volume $ckpt_remote_path/ 
   ls -l $ckpt_remote_path
 else
-  echo 'Can't find remote data volume $ckpt_remote_path, checkpoints aren't persisted remotely.'
+  echo Cannot find remote data volume $ckpt_remote_path, checkpoints are not persisted remotely.
 fi
 
 echo "Done persisting checkpoints to remote storage."
