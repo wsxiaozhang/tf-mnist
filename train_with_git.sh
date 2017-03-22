@@ -14,7 +14,7 @@ if [ -d "$default_oss_volume_path" ]; then
 fi
 
 if [ ! -d "$default_output_path" ]; then
-  mkdir $default_output_path
+  mkdir -p $default_output_path
 fi
 
 echo "Run training code as: " $@
@@ -24,13 +24,14 @@ eval "$@"
 echo "Done running training code."
 
 ckpt_local_path=$default_output_path
-ckpt_remote_path=$DEFAULT_REMOTE_VOLUME_PATH
-#ckpt_remote_path=$default_input_path
+ckpt_remote_path=$default_oss_volume_path
 
-echo 'Persist checkpoints from' $ckpt_local_path 'to ' $ckpt_remote_path
-
-cp -r $ckpt_local_path'/' $ckpt_remote_path
-
-ls -l $ckpt_remote_path
+if [ -d $ckpt_remote_path ]; then
+  cp -r $ckpt_local_path'/*' $ckpt_remote_path
+  echo 'Persists checkpoints from local path $ckpt_local_path to remote data volume $ckpt_remote_path.' 
+  ls -l $ckpt_remote_path
+else
+  echo 'Can't find remote data volume $ckpt_remote_path, checkpoints aren't persisted remotely.'
+fi
 
 echo "Done persisting checkpoints to remote storage."
