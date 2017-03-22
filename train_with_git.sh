@@ -29,7 +29,7 @@ ckpt_remote_path=$DEFAULT_REMOTE_VOLUME_PATH
 
 echo 'Persist checkpoints from' $ckpt_local_path 'to ' $ckpt_remote_path
 
-cp -r $ckpt_local_path $ckpt_remote_path
+cp -r $ckpt_local_path'/' $ckpt_remote_path
 
 ls -l $ckpt_remote_path
 
