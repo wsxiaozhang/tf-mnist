@@ -86,12 +86,12 @@ def main(unused_argv):
     sys.exit(0)
 
   if FLAGS.job_name is None or FLAGS.job_name == "":
-    if os.getenv("JOB_NAME") not None:
+    if os.getenv("JOB_NAME") is not None:
       FLAGS.job_name = os.getenv("JOB_NAME")
     else:
       raise ValueError("Must specify an explicit `job_name`")
   if FLAGS.task_index is None or FLAGS.task_index =="":
-    if os.getenv("JOB_INDEX") not None:
+    if os.getenv("JOB_INDEX") is not None:
       FLAGS.task_index = os.getenv("JOB_INDEX")
     else:
       raise ValueError("Must specify an explicit `task_index`")
@@ -101,12 +101,12 @@ def main(unused_argv):
 
   #Construct the cluster and start the server
   if FLAGS.ps_hosts is None or FLAGS.ps_hosts =="":
-    if os.getenv("PS_HOSTS") not None:
+    if os.getenv("PS_HOSTS") is not None:
       FLAGS.ps_hosts = os.getenv("PS_HOSTS")
     else:
       raise ValueError("Failed to find PS hosts info.")
   if FLAGS.worker_hosts is None or FLAGS.worker_hosts =="":
-    if os.getenv("WORKER_HOSTS") not None:
+    if os.getenv("WORKER_HOSTS") is not None:
       FLAGS.worker_hosts = os.getenv("WORKER_HOSTS")
     else:
       raise ValueError("Failed to find Worker hosts info.")
