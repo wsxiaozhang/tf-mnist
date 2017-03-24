@@ -28,7 +28,8 @@ if [ ! -d "$default_output_path" ]; then
 fi
 
 # exec user's command
-echo "Run training code as: " $@
+cd ./$prj
+echo "Run training code under $PWD as: "$@
 eval "$@"
 echo "Done running training code."
 

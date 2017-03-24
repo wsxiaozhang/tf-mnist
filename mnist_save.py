@@ -1,47 +1,20 @@
-# Copyright 2016 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-
 #!/usr/bin/env python2.7
 """Train and export a simple Softmax Regression TensorFlow model.
 
 The model is from the TensorFlow "MNIST For ML Beginner" tutorial. This program
-simply follows all its training instructions, and uses TensorFlow SavedModel to
-export the trained model with proper signatures that can be loaded by standard
-tensorflow_model_server.
+simply follows all its training instructions, and save its checkpoints.
 
-Usage: mnist_save.py [--training_iteration=x] [--model_version=y] [--work_dir=dataset_dir] [--log_dir=checkpoint_dir]
+Usage: mnist_save.py [--training_iteration=x] [--work_dir=dataset_dir] [--log_dir=checkpoint_dir]
 """
 
 import os
 import sys
 
-# This is a placeholder for a Google-internal import.
-
 import tensorflow as tf
-
-from tensorflow.python.saved_model import builder as saved_model_builder
-from tensorflow.python.saved_model import signature_constants
-from tensorflow.python.saved_model import signature_def_utils
-from tensorflow.python.saved_model import tag_constants
-from tensorflow.python.saved_model import utils
-from tensorflow.python.util import compat
 from tensorflow.examples.tutorials.mnist import input_data as mnist_input_data
 
 tf.app.flags.DEFINE_integer('training_iteration', 1000,
                             'number of training iterations.')
-tf.app.flags.DEFINE_integer('model_version', 1, 'version number of the model.')
 tf.app.flags.DEFINE_string('data_dir', '/tmp', 'Mnist dataset directory.')
 tf.app.flags.DEFINE_string('log_dir', '/tmp/mnist_log', 'checkpoint and log directory.')
 FLAGS = tf.app.flags.FLAGS
@@ -50,12 +23,9 @@ FLAGS = tf.app.flags.FLAGS
 def main(_):
   if len(sys.argv) == 1:
     print('Usage: mnist_export.py [--training_iteration=x] '
-          '[--model_version=y] [--data_dir=dataset_dir] [--log_dir=checkpoint_dir]')
+          '[--data_dir=dataset_dir] [--log_dir=checkpoint_dir]')
   if FLAGS.training_iteration <= 0:
     print 'Please specify a positive value for training iteration.'
-    sys.exit(-1)
-  if FLAGS.model_version <= 0:
-    print 'Please specify a positive value for version number.'
     sys.exit(-1)
 
   # Train model
