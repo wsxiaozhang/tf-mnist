@@ -64,9 +64,9 @@ flags.DEFINE_boolean(
     "will use the worker hosts via their GRPC URLs (one client process "
     "per worker host). Otherwise, will create an in-process TensorFlow "
     "server.")
-flags.DEFINE_string("ps_hosts","localhost:2222",
+flags.DEFINE_string("ps_hosts","",
                     "Comma-separated list of hostname:port pairs")
-flags.DEFINE_string("worker_hosts", "localhost:2223,localhost:2224",
+flags.DEFINE_string("worker_hosts", "",
                     "Comma-separated list of hostname:port pairs")
 flags.DEFINE_string("job_name", None,"job name: worker or ps")
 flags.DEFINE_integer("task_index", None,
