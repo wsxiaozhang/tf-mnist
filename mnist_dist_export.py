@@ -45,7 +45,7 @@ def main(_):
 #   with new_sess.graph.as_default():
   #  tf.reset_default_graph()
   #  new_sess.run(tf.initialize_all_variables())
-    new_saver = tf.train.import_meta_graph(meta_graph_file) #'/test/mnistoutput/ckpt.meta')
+    new_saver = tf.train.import_meta_graph(meta_graph_file, clear_devices=True) #'/test/mnistoutput/ckpt.meta')
     new_saver.restore(new_sess, ckpt_path) #'/test/mnistoutput/ckpt')
     new_graph = tf.get_default_graph()
     new_x = new_graph.get_tensor_by_name('x-input:0')
@@ -81,7 +81,8 @@ def main(_):
           'predict_images':
               prediction_signature,
       },
-      legacy_init_op=legacy_init_op)
+      legacy_init_op=legacy_init_op,
+      clear_devices=True)
     builder.save()
 
   print 'Done exporting!'
