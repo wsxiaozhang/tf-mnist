@@ -48,9 +48,9 @@ def main(_):
     new_saver = tf.train.import_meta_graph(meta_graph_file, clear_devices=True) #'/test/mnistoutput/ckpt.meta')
     new_saver.restore(new_sess, ckpt_path) #'/test/mnistoutput/ckpt')
     new_graph = tf.get_default_graph()
-    new_x = new_graph.get_tensor_by_name('x-input:0')
+    new_x = new_graph.get_tensor_by_name('input/x-input:0')
     print(new_x)
-    new_y = new_graph.get_tensor_by_name('y:0')
+    new_y = new_graph.get_tensor_by_name('softmax_layer/y:0')
     print(new_y)
 
   # Export model
