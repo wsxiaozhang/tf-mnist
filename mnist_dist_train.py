@@ -203,7 +203,7 @@ def main(unused_argv):
               stddev=1.0 / math.sqrt(FLAGS.hidden_units)),
           name="sm_w")
       sm_b = tf.Variable(tf.zeros([10]), name="sm_b")
-      y = tf.nn.softmax(tf.nn.xw_plus_b(hid, sm_w, sm_b))
+      y = tf.nn.softmax(tf.nn.xw_plus_b(hid, sm_w, sm_b), name="y")
 
     # lose function - cross_entropy
     with tf.name_scope('cross_entropy'): 
