@@ -1,4 +1,0 @@
-FROM  registry.cn-beijing.aliyuncs.com/cheyang/tensorflow-serving:devel-051
-
-# upgrade grpcio module
-RUN pip install -U grpcio
