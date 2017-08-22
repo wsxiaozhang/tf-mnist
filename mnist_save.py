@@ -45,8 +45,6 @@ def main(_):
     y_ = tf.placeholder('float', shape=[None, 10])
     w = tf.Variable(tf.zeros([784, 10]))
     b = tf.Variable(tf.zeros([10]))
-    tf.summary.scalar('w', w)
-    tf.summary.scalar('b', b)
     sess.run(tf.initialize_all_variables())
     y = tf.nn.softmax(tf.matmul(x, w) + b, name='y')
     cross_entropy = -tf.reduce_sum(y_ * tf.log(y), name='corss_entropy')
