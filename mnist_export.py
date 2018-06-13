@@ -103,7 +103,9 @@ def main(_):
           signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY:
               classification_signature,
       },
-      legacy_init_op=legacy_init_op)
+      legacy_init_op=legacy_init_op,
+      clear_devices=True
+    )
     builder.save()
 
   print 'Done exporting!'
