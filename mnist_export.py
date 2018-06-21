@@ -44,7 +44,7 @@ def main(_):
 #   with new_sess.graph.as_default():
   #  tf.reset_default_graph()
   #  new_sess.run(tf.initialize_all_variables())
-    new_saver = tf.train.import_meta_graph(meta_graph_file) #'/test/mnistoutput/ckpt.meta')
+    new_saver = tf.train.import_meta_graph(meta_graph_file, clear_devices=True) #'/test/mnistoutput/ckpt.meta')
     new_saver.restore(new_sess, ckpt_path) #'/test/mnistoutput/ckpt')
     new_values = tf.get_collection('values')[0]
     print(new_values)
